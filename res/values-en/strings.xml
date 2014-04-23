@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--Английсий-->    
+    <string name="app_name">Test task 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="sNotConnection">No connect</string>
+    <string name="sNotLogin">NO connection to internet!</string>
+	<string name="sTitleMain">exchange rate established by the CBR %s</string>
+	<string name="sDynam">Dynamics</string>    
+	<string name="sSeparator">-</string>
+    <string name="sNoData">There is no data to plot</string>
+    <string name="sCapGr">Change rate %s with respect to RUR</string>
+    <string name="sSelVal">Long press will currency Select in the list</string>
+    <string name="sDatePeriod" formatted="false">%s to %s</string>
+    <string name="sPeriod">Period:</string>
+	<string name="sPeriodMonth">Month</string>
+	<string name="sPeriodQuarter">Quarter</string>
+	<string name="sPeriodHY">Half-Year</string>
+	<string name="sPeriodYear">Year</string>
+	<string name="sPeriodAllData">All Data</string>
+	<string name="sLoading">Loading.....</string>
+	<string name="mnuRateDate">Rate at the date</string>
+	<string name="mnuLastRate">the Last rate</string>
+	<string name="mnuAllVal">All currencies</string>
+	<string name="mnuSave">Save</string>
+	<string name="mnuDel">Delete current</string>
+	<string name="mnuProfiles">Profiles</string>
+	<string name="mnuRefresh">Refresh</string>	
+	<string name="sPred">previous: </string>
+	<string name="sChange">difference: </string>
+    <string name="sOk">Ok</string>
+    <string name="sCancel">Cancel</string>
+    <string name="sTitleSaveProfile">profile name</string>		
+		
+<!--Английсий-->    
+</resources>
+

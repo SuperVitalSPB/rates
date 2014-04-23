@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/action_refresh"
+        android:icon="@android:drawable/ic_menu_revert"
+        android:orderInCategory="100"
+        android:title="@string/mnuRefresh"/>
+    
+    
+    <item
+        android:id="@+id/action_ratedate"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/mnuRateDate"/>
+    
+    <item
+        android:id="@+id/action_ratedate_last"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/mnuLastRate"/>
+    
+	<item
+		android:id="@+id/action_profile"
+		android:title="@string/mnuProfiles">
+		<menu>
+		    <item
+		        android:id="@+id/action_allval"
+		        android:orderInCategory="1"
+		        android:showAsAction="never"
+		        android:icon="@android:drawable/ic_menu_info_details"
+		        android:title="@string/mnuAllVal"/>
+		    		    
+			<item
+				android:id="@+id/action_saveprof"
+				android:orderInCategory="100"
+				android:icon="@android:drawable/ic_menu_save"
+				android:title="@string/mnuSave"/>
+
+			<item
+				android:id="@+id/action_delprof"
+				android:orderInCategory="101"
+				android:icon="@android:drawable/ic_menu_delete"
+				android:title="@string/mnuDel"/>
+
+		</menu>
+	    	    
+	</item>
+    
+</menu>

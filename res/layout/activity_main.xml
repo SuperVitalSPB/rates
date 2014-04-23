@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="0dp"
+    android:layout_marginBottom="0dp"
+    android:layout_marginLeft="0dp"
+    android:layout_marginRight="0dp"
+    android:layout_marginTop="0dp"
+    android:background="@drawable/tv_background_with_divider"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+	     android:id="@+id/ll_progressbar"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center"
+		    android:gravity="center_horizontal"
+		    android:orientation="vertical"
+		    android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp" />
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/lblTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sTitleMain"
+            android:textAllCaps="false"
+            android:textAppearance="@style/title2"
+            android:background="@drawable/tv_background_with_divider"
+            android:textSize="20sp" />
+
+        <view
+            android:id="@+id/lvBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            class="ru.supervital.rates.BackgroundContainer" >
+
+            <ListView
+                android:id="@+id/lvMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:drawSelectorOnTop="true"
+                android:fadingEdge="vertical|horizontal"
+                android:overScrollMode="always"
+                android:scrollbars="horizontal|vertical"
+                android:scrollingCache="true" >
+            </ListView>
+        </view>
+        
+    </LinearLayout>
+    
+</LinearLayout>

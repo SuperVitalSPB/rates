@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--Французский-->    
+    <string name="app_name">Tâche de test 3</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="sNotConnection">NO connexion à Internet!</string>
+    <string name="sNotLogin">NO connexion à Internet!</string>
+    <string name="sTitleMain">taux de change établi par la CBR %s</string>
+    <string name="sDynam">Dynamique</string>
+    <string name="sSeparator">-</string>
+    <string name="sNoData">Il nexiste pas de donnees pour tracer</string>
+    <string name="sCapGr">Taux de changement %s par rapport a RUR</string>
+    <string name="sSelVal">Pression longue Devise Selectionnez dans la liste</string>
+    <string name="sDatePeriod" formatted="false">%s to %s</string>
+    <string name="sPeriod">Période:</string>
+	<string name="sPeriodMonth">Mois</string>    
+	<string name="sPeriodQuarter">Trimestre</string>
+	<string name="sPeriodHY">Six mois</string>
+	<string name="sPeriodYear">Année</string>
+	<string name="sPeriodAllData">Toutes les données</string>
+	<string name="sLoading">Loading.....</string>
+	<string name="mnuRateDate">Tarifs à la date</string>
+	<string name="mnuLastRate">le dernier taux</string>
+    <string name="mnuAllVal">Toutes les devises</string>	
+ 	<string name="mnuSave">Enregistrer</string> 
+	<string name="mnuDel">Supprimer actuelle</string>
+ 	<string name="mnuProfiles">Profils</string>   
+ 	<string name="mnuRefresh">Mise à jour</string> 
+	<string name="sPred">precedente: </string>
+	<string name="sChange">difference: </string>
+    <string name="sOk">Ок</string>
+    <string name="sCancel">Annulation</string>
+    <string name="sTitleSaveProfile">nom de profil</string>		
+	    
+<!--Французский-->
+</resources>
+

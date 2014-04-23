@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- Русский -->
+    <string name="app_name">Курсы валют</string>
+    <string name="action_settings">Настройки</string>
+    <string name="sNotConnection">Нет соединения</string>
+    <string name="sNotLogin">НЕТ соединения с internet!</string>
+    <string name="sTitleMain" formatted="false">курсы валют установленные ЦБ РФ на %s</string>
+    <string name="sDynam">Динамика курса</string>
+    <string name="sSeparator">-</string>    
+    <string name="sNoData">Отсутствуют данные для построения графика</string>
+    <string name="sCapGr">Изменение курса %s по отношению к RUR</string>
+    <string name="sSelVal">Долгим нажатем выберите валюту из списка</string>
+    <string name="sDatePeriod" formatted="false">с %s по %s</string>
+    <string name="sPeriod">Период:</string>
+    <string name="sPeriodMonth">Месяц</string>
+    <string name="sPeriodQuarter">Квартал</string>
+    <string name="sPeriodHY">Полгода</string>
+    <string name="sPeriodYear">Год</string>
+    <string name="sPeriodAllData">Все данные</string>
+    <string name="sLoading">Загрузка.....</string>
+    <string name="mnuRateDate">Курс на дату</string>
+    <string name="mnuLastRate">Последний курс валют</string>
+    <string name="mnuAllVal">Все валюты</string>
+    <string name="mnuSave">Сохранить</string>
+    <string name="mnuDel">Удалить текущий</string>
+    <string name="mnuProfiles">Профили</string>
+    <string name="mnuRefresh">Обновить</string>
+    <string name="sPred">предыдущий: </string>
+    <string name="sChange">разница: </string>
+    <string name="sOk">Ок</string>
+    <string name="sCancel">Отмена</string>
+    <string name="sTitleSaveProfile">Имя профиля</string>
+<!-- Русский -->
+    
+</resources>
+
