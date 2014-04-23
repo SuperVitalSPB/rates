@@ -1,4 +1,6 @@
 rates
+rates
+ratess
 =====
 
 rates
