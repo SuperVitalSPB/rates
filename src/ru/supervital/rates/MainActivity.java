@@ -1,16 +1,18 @@
 package ru.supervital.rates;
 
 import java.util.ArrayList;
+import android.content.Intent;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewTreeObserver;
 import android.widget.ListView;
-
 import java.io.EOFException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -20,14 +22,15 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.xmlpull.v1.XmlPullParser;
-
 import ru.supervital.rates.R.drawable;
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ActionBar.Tab;
+import android.app.ActionBar.TabListener;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 import android.content.Context;
@@ -35,11 +38,16 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -58,8 +66,6 @@ public class MainActivity extends Activity {
 	private TextView lblTitle;
 	private ListView lvMain;
 	
-	boolean isOnline;
-
 //--	
 	List<NameValuePair> Profiles;
 	
@@ -80,7 +86,7 @@ public class MainActivity extends Activity {
     BackgroundContainer mBackgroundContainer;
     boolean mSwiping = false;
     boolean mItemPressed = false;
-    private static final int SWIPE_DURATION = 250;
+    private static final int SWIPE_DURATION = 550;
     private static final int MOVE_DURATION = 150;
 
     
@@ -107,22 +113,27 @@ public class MainActivity extends Activity {
 		android.util.Log.d("Debug", "d=" + lvMain.getDivider());
 		
 		lvMain.setClickable(true);
-		//registerForContextMenu(lvMain);
+		registerForContextMenu(lvMain);
+		lvMain.setOnCreateContextMenuListener(this);
+		
 		
 		mProgressBar = (LinearLayout) findViewById(R.id.ll_progressbar);
-		isOnline = isOnline();
 		checkOnline();
 		
-		lvMain.setOnItemClickListener( new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) {
-			    Rate val = (Rate) lvMain.getItemAtPosition(position);
-			    ShowToast(val);
-			}
-		});
 		LastRate();
+	
 	}
-
+	
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		switch (v.getId()) {
+			case R.id.lvMain:
+				getMenuInflater().inflate(R.menu.contextmenu, menu);
+			break;
+		}
+	}
+	
 	public void ShowToast(Rate val){
 	    String sStr = val.Name + "\n"+ getString(R.string.sPred) + " " + val.RatePrev;
 	    double vCh = val.Rate - val.RatePrev;
@@ -147,7 +158,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void checkOnline(){
-		if (isOnline) { 
+		if (isOnline()) { 
 			lblTitle.setTextColor(Color.BLUE);
 		} else {
 			ShowNotOnline(getString(R.string.sNotLogin));
@@ -159,11 +170,13 @@ public class MainActivity extends Activity {
 		lblTitle.setTextColor(Color.RED);
 	}
 	
-	public void setTitle(String aDateRate){
+	public void setDateTitle(String aDateRate){
 		String sStr = "";
 		if (aDateRate.length() == 0) return;
-		sStr = String.format(getString(R.string.sTitleMain), aDateRate + ":");
-		lblTitle.setText(sStr);
+		sStr = String.format(getString(R.string.sTitleMain), aDateRate);
+		CharSequence styledString = Html.fromHtml(sStr);
+		lblTitle.setTextColor(Color.BLUE);
+		lblTitle.setText(styledString);
 		return;
 	}
 	
@@ -192,9 +205,29 @@ public class MainActivity extends Activity {
 			mt.execute(mt.Url);
 			mt.showProgress(true);
 		} else {
-			setTitle(sDateRate);
+			setDateTitle(sDateRate);
 			lvMain.setAdapter(mAdapter);
 		}
+	}
+
+	public void LoadRatePrev() {
+		if (rates.size()==0) return;
+		
+		mtP = new CurrSendPost(null, null, aResult);			
+		mtP.isRatePrev = true;
+      
+		Calendar c = Calendar.getInstance();
+	  	c.setTime(getDateRate());
+		c.add(Calendar.DATE, -1);
+		String sDate = new SimpleDateFormat("dd.MM.yyyy", new Locale("ru")).format(c.getTime());
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+		nameValuePairs.add(new BasicNameValuePair("date_req", sDate)); 
+		mtP.mActivity = this; 			
+		mtP.mProgressBar = mProgressBar;
+		mtP.Url = "http://www.cbr.ru/scripts/XML_daily.asp";   
+		mtP.Params = nameValuePairs;
+		mtP.execute(mtP.Url);
+		mtP.showProgress(true);
 	}
 	
 	public void SortRates(){
@@ -212,7 +245,7 @@ public class MainActivity extends Activity {
 			});
 	}
 	
-	 public Date getDateRate(){
+	public Date getDateRate(){
 		Date res = new Date();		
 		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", new Locale("ru"));
         try {
@@ -223,29 +256,9 @@ public class MainActivity extends Activity {
  	     return res;
  	  }
  	
-	  public void setDateRate(String sStr) {
+	public void setDateRate(String sStr) {
 		  sDateRate = sStr;
-		  setTitle(sDateRate);
-	  }
-	
-	  public void LoadRatePrev() {
-		if (rates.size()==0) return;
-		
-		mtP = new CurrSendPost(null, null, aResult);			
-		mtP.isRatePrev = true;
-        
-        Calendar c = Calendar.getInstance();
-        c.setTime(getDateRate());
-		c.add(Calendar.DATE, -1);
-		String sDate = new SimpleDateFormat("dd.MM.yyyy", new Locale("ru")).format(c.getTime());
-		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-		nameValuePairs.add(new BasicNameValuePair("date_req", sDate)); 
-		mtP.mActivity = this; 			
-		mtP.mProgressBar = mProgressBar;
-		mtP.Url = "http://www.cbr.ru/scripts/XML_daily.asp";   
-		mtP.Params = nameValuePairs;
-		mtP.execute(mtP.Url);
-		mtP.showProgress(true);
+		  setDateTitle(sDateRate);
 	}
 	
 	@Override
@@ -288,7 +301,7 @@ public class MainActivity extends Activity {
 		    			MenuItem mi = item.getSubMenu().getItem(i);
 		    			if (mi.getTitle().equals(getString(R.string.mnuAllVal)))
 		    				menuAllVal_item = mi;
-		    			if (mi.getTitle().equals(getString(R.string.mnuDel)))
+		    			if (mi.getTitle().equals(getString(R.string.mnuDelProfile)))
 		    				menuDelete_item = mi;
 
 		    				
@@ -303,12 +316,28 @@ public class MainActivity extends Activity {
 		    		}
 		    	}
 		    	setCheckProfile(sLastProfile);
-
-		    	menuDelete_item.setEnabled(!menuAllVal_item.isChecked());
+		    	
+		    	if (Profiles.size() == 0) {
+	    			for (int i=0; i<menuProfile_item.getSubMenu().size(); i++) {
+		    			MenuItem mi = item.getSubMenu().getItem(i);
+		    			if (mi.getTitle().equals(getString(R.string.mnuAllVal)))
+		    				menuAllVal_item = mi;
+		    			if (mi.getTitle().equals(getString(R.string.mnuDelProfile)))
+		    				menuDelete_item = mi;
+		    		}
+		    		
+		    	}
+		    			
+		    	if (menuDelete_item != null && menuAllVal_item != null)
+		    		menuDelete_item.setEnabled(!menuAllVal_item.isChecked());
 		    	
 		    	return true;
 		    case R.id.action_saveprof:
 		    	SaveProfile();
+		    	return true;
+		    case R.id.action_about:
+		        Intent intent = new Intent(this, AboutActivity.class);
+		        startActivity(intent);
 		    	return true;
 		    case R.id.action_delprof:
 		    	delCheckedPropfile();
@@ -409,7 +438,6 @@ public class MainActivity extends Activity {
 		}
 		return -1;
 	}
-
 	
 	private void addProfile(String sProfileName) {
     	String sStr = "";
@@ -488,14 +516,28 @@ public class MainActivity extends Activity {
         	setDateRate(sStr);
         	rates.clear();
         	claRates.clear();
-        	setTitle(sStr);
+        	setDateTitle(sStr);
         	LoadRate(getDateRate());
       	}
 	  };
 	  
+    private String getValNotShowList(String aProfileName){
+    	if (aProfileName.length()==0) return "";
+    	return getSharedPreferences(av_APP_PREFERENCES, Context.MODE_PRIVATE).getString(aProfileName, "");
+    }
+
+    private String getLastProfile(){
+    	return getSharedPreferences(av_APP_PREFERENCES, Context.MODE_PRIVATE).getString(av_LAST_PROFILE, getString(R.string.mnuAllVal));
+    }
+    
+    private void setLastProfile(String aProfileName) {
+    	SharedPreferences mSettings = getSharedPreferences(av_APP_PREFERENCES, Context.MODE_PRIVATE);
+    	Editor editor = mSettings.edit();
+    	editor.putString(av_LAST_PROFILE, aProfileName);
+    	editor.apply();    	   
+    }
+    
 //==============================================================================================================	  
-//==============================================================================================================	
-//==============================================================================================================	
 	public class CurrSendPost extends SendPost {
 		
 		String sRateList = "";
@@ -601,25 +643,26 @@ public class MainActivity extends Activity {
 				SortRates();
 				LoadRatePrev();
 			} else{  
-				setTitle(sDateRate);
+				setDateTitle(sDateRate);
 				lvMain.setAdapter(mAdapter);
 			}
 			
 			} else { // success
 				sMsg = sMsg + sRateList;
-				AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-				builder.setTitle("Îøèáêà");
-				builder.setMessage(sMsg);
-				builder.setCancelable(true);
-				builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() { // Êíîïêà ÎÊ
-				    @Override
-				    public void onClick(DialogInterface dialog, int which) {
-				    	dialog.cancel();
-				    }
-				});
+				
+//				AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+//				builder.setTitle("Îøèáêà");
+//				builder.setMessage(sMsg);
+//				builder.setCancelable(true);
+//				builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() { // Êíîïêà ÎÊ
+//				    @Override
+//				    public void onClick(DialogInterface dialog, int which) {
+//				    	dialog.cancel();
+//				    }
+//				});
 				ShowNotOnline(sMsg);			
-				AlertDialog dialog = builder.create();
-				dialog.show();
+//				AlertDialog dialog = builder.create();
+//				dialog.show();
 			}
 			mAdapter.notifyDataSetChanged();
 			showProgress(false);
@@ -659,16 +702,14 @@ public class MainActivity extends Activity {
 		
 	} // class post
 //==============================================================================================================	  
-//==============================================================================================================	
-//==============================================================================================================	
 
     /**
      * Handle touch events to fade/move dragged items as they are swiped out
      */
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
-        float mDownX;
+        float mDownX, mDownY;
         private int mSwipeSlop = -1;
-       
+
         @Override
         public boolean onTouch(final View v, MotionEvent event) {
             if (mSwipeSlop < 0) {
@@ -677,11 +718,12 @@ public class MainActivity extends Activity {
             switch (event.getAction()) {
 	            case MotionEvent.ACTION_DOWN:
 	                if (mItemPressed) {
-	                    // Multi-item swipes not handled
+//	                    lvMain.showContextMenu();
 	                    return false;
 	                }
 	                mItemPressed = true;
 	                mDownX = event.getX();
+	                mDownY = event.getY();
 	                break;
 	            case MotionEvent.ACTION_CANCEL:
 	                v.setAlpha(1);
@@ -817,22 +859,6 @@ public class MainActivity extends Activity {
             }
         });
     }
-	
-    private String getValNotShowList(String aProfileName){
-    	if (aProfileName.length()==0) return "";
-    	return getSharedPreferences(av_APP_PREFERENCES, Context.MODE_PRIVATE).getString(aProfileName, "");
-    }
 
-    private String getLastProfile(){
-    	return getSharedPreferences(av_APP_PREFERENCES, Context.MODE_PRIVATE).getString(av_LAST_PROFILE, getString(R.string.mnuAllVal));
-    }
-    
-    private void setLastProfile(String aProfileName) {
-    	SharedPreferences mSettings = getSharedPreferences(av_APP_PREFERENCES, Context.MODE_PRIVATE);
-    	Editor editor = mSettings.edit();
-    	editor.putString(av_LAST_PROFILE, aProfileName);
-    	editor.apply();    	   
-    }
-    
     
 }  // main class

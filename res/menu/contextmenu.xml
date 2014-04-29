@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+<!--    android:icon="@drawable/ic_menu_refresh" -->    
+    <item
+        android:id="@+id/action_delval"
+        android:orderInCategory="0"
+        android:title="@string/mnuDeleteValute"/>
+  
+    <item
+        android:id="@+id/action_banks"
+        android:orderInCategory="0"
+        android:title="@string/mnuBanks"/>
+    
+    <item
+        android:id="@+id/action_viewmap"
+        android:orderInCategory="0"
+        android:title="@string/mnuViewMap"/>
+    
+</menu>

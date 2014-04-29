@@ -3,7 +3,9 @@
 	android:paddingStart="?android:attr/listPreferredItemPaddingStart" 
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
     
-android:minHeight="?android:attr/listPreferredItemHeightSmall"    
+android:minHeight="?android:attr/listPreferredItemHeightSmall"
+
+android:textAppearance="?android:attr/textAppearanceListItem"    
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,9 +13,10 @@ android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 	android:background="@drawable/tv_background_with_divider"
-    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+    android:textAppearance="@style/textlist"
     android:gravity="center_vertical"
     android:minHeight="15sp"
+    android:showDividers="middle"
     android:orientation="horizontal" xmlns:android1="http://schemas.android.com/apk/res/android">
 
       <ImageView
@@ -23,33 +26,35 @@ android:minHeight="?android:attr/listPreferredItemHeightSmall"
           android1:layout_marginRight="10sp"
           android1:src="@drawable/ic_launcher" />
 
-      <ImageView
-          android1:id="@+id/rch"
-          android1:layout_width="22sp"
-          android1:layout_height="22sp"
-          android1:layout_marginRight="10sp" />
-
       <TextView
           android1:id="@+id/txtNominal"
-          android1:layout_width="100dp"
+          android1:layout_width="70dp"
           android1:layout_height="wrap_content"
-          android1:hint="@+id/label"
+          android1:textAppearance="@style/textlist"
           android1:textSize="20sp" />
 
       <TextView
           android1:id="@+id/txtCode"
           android1:layout_width="wrap_content"
           android1:layout_height="wrap_content"
-          android1:layout_weight="1"
-          android1:text="@+id/label"
-          android1:textSize="20sp" />
+          android1:layout_weight="3"
+          android1:textAppearance="@style/textlist"
+          android1:textSize="20sp"
+          android1:layout_marginRight="10sp" />
 
       <TextView
           android1:id="@+id/txtRate"
           android1:layout_width="wrap_content"
           android1:layout_height="wrap_content"
-          android1:layout_weight="1"
-          android1:hint="@+id/label"
-          android1:textSize="20sp" />
-
+          android1:layout_weight="7"
+          android1:textAppearance="@style/textlist"
+          android1:textSize="20sp" 
+          android1:layout_marginRight="10sp" />
+      
+      <ImageView
+          android1:id="@+id/rch"
+          android1:layout_width="22sp"
+          android1:layout_height="22sp"/>
+      
+      
 </LinearLayout>

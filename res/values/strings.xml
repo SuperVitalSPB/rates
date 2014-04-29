@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--  formatted="false" -->
 <resources>
 <!-- Русский -->
-    <string name="app_name">Курсы валют</string>
+    <string name="app_name">Лучший курс обмена</string>
     <string name="action_settings">Настройки</string>
     <string name="sNotConnection">Нет соединения</string>
     <string name="sNotLogin">НЕТ соединения с internet!</string>
-    <string name="sTitleMain" formatted="false">курсы валют установленные ЦБ РФ на %s</string>
+    <string name="sTitleMain">курсы валют установленные ЦБ РФ на &lt;b>%s&lt;/b>:</string>
     <string name="sDynam">Динамика курса</string>
     <string name="sSeparator">-</string>    
     <string name="sNoData">Отсутствуют данные для построения графика</string>
@@ -22,15 +23,29 @@
     <string name="mnuRateDate">Курс на дату</string>
     <string name="mnuLastRate">Последний курс валют</string>
     <string name="mnuAllVal">Все валюты</string>
-    <string name="mnuSave">Сохранить</string>
-    <string name="mnuDel">Удалить текущий</string>
+    <string name="mnuCreateNewProfil">Создать новый профиль</string>
+    <string name="mnuDelProfile">Удалить текущий профиль</string>
     <string name="mnuProfiles">Профили</string>
     <string name="mnuRefresh">Обновить</string>
+    <string name="mnuAbout">О программе</string>    
+    <string name="mnuDeleteValute">Удалить из списка</string>
+    <string name="mnuBanks">Банки</string>
+    <string name="mnuViewMap">На карте</string>
     <string name="sPred">предыдущий: </string>
     <string name="sChange">разница: </string>
     <string name="sOk">Ок</string>
     <string name="sCancel">Отмена</string>
     <string name="sTitleSaveProfile">Имя профиля</string>
+	<string name="about_text">
+	    Творец и автор <b>Оанца В.В.</b>\n
+	     \n
+	    версия 1.00 от хх.хх.хххх
+	    \n
+	    \n
+	    \n </string>
+    
+	
+	<string name="about_title">О программе</string>	
 <!-- Русский -->
     
 </resources>

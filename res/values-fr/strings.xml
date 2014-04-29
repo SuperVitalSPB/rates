@@ -22,8 +22,8 @@
 	<string name="mnuRateDate">Tarifs à la date</string>
 	<string name="mnuLastRate">le dernier taux</string>
     <string name="mnuAllVal">Toutes les devises</string>	
- 	<string name="mnuSave">Enregistrer</string> 
-	<string name="mnuDel">Supprimer actuelle</string>
+ 	<string name="mnuCreateNewProfil">Créer un nouveau profil</string> 
+	<string name="mnuDelProfile">Supprimer actuelle</string>
  	<string name="mnuProfiles">Profils</string>   
  	<string name="mnuRefresh">Mise à jour</string> 
 	<string name="sPred">precedente: </string>

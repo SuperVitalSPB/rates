@@ -22,10 +22,12 @@
 	<string name="mnuRateDate">Rate at the date</string>
 	<string name="mnuLastRate">the Last rate</string>
 	<string name="mnuAllVal">All currencies</string>
-	<string name="mnuSave">Save</string>
-	<string name="mnuDel">Delete current</string>
+	<string name="mnuCreateNewProfil">Create new profile</string>
+	<string name="mnuDelProfile">Delete current</string>
 	<string name="mnuProfiles">Profiles</string>
 	<string name="mnuRefresh">Refresh</string>	
+	<string name="mnuAbout">About</string>
+	<string name="mnuDeleteValute">Delete from list</string>
 	<string name="sPred">previous: </string>
 	<string name="sChange">difference: </string>
     <string name="sOk">Ok</string>

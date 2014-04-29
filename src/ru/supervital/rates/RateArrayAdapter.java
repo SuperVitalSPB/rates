@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,11 +31,11 @@ public class RateArrayAdapter extends ArrayAdapter <Rate> {
 // из потомков класса
     static class ViewHolder {
         public ImageView Icon;
-        public ImageView RCh;
         public TextView txtCode;
         public TextView txtRate;
         public TextView txtNominal;
         public TextView txtName;
+        public ImageView RCh;        
     }
 
 
@@ -53,14 +55,15 @@ public class RateArrayAdapter extends ArrayAdapter <Rate> {
             rowView = inflater.inflate(R.layout.rowlayout, null, true);
             holder = new ViewHolder();
             holder.Icon =  (ImageView) rowView.findViewById(R.id.icon);
-            holder.RCh = (ImageView) rowView.findViewById(R.id.rch);
             holder.txtCode =    (TextView) rowView.findViewById(R.id.txtCode);
             holder.txtRate =    (TextView) rowView.findViewById(R.id.txtRate);
             holder.txtNominal = (TextView) rowView.findViewById(R.id.txtNominal);
+            holder.RCh = (ImageView) rowView.findViewById(R.id.rch);            
             rowView.setTag(holder);
         } else {
             holder = (ViewHolder) rowView.getTag();
         }
+
         holder.txtCode.setText((CharSequence) rates.get(position).Code);
         holder.txtRate.setText((CharSequence) String.valueOf(rates.get(position).Rate));
         holder.txtNominal.setText((CharSequence) rates.get(position).Nominal);
@@ -96,7 +99,7 @@ public class RateArrayAdapter extends ArrayAdapter <Rate> {
         return position;
     }
     
-    
-
-    
 }
+
+
+// setOnItemLongClickListener(new View.OnItemLongClickListener) контекстное меню
